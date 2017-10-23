@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Ajaxsteast.Models.product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Like</h2>
+
+@foreach (var item in Model)
+{
+    <div style="float:left; padding:10px; border:2px gray dotted; margin:10px;">
+        <p>id = @item.id</p><br />
+        <p class="chng"> name = @item.prod_name</p><br />
+       <br /> <p>cat name = @item.category.name</p><br />
+        <a style="color:black;text-decoration:none;" class="like" href="javascript:void(0)" data-id="@item.id">
+            <button>Like</button>
+       : @item.product_like
+        </a>
+       
+
+       
+    </div>
+}
+
+<div style="clear:both;"></div>
+
+
+
+
+@section Likee{
+    
+    <script>
+        $(document).ready(function () {
+
+            $("a.like").click(function () {
+                var id = $(this).data("id");
+                var link = "/Likeadd/Likes/" + id;
+            
+                var a = $(this);
+                $.ajax({
+                    type: "GET",
+                    url: link,
+                    success: function (result) {
+                        a.html("<button>Like</button> : " + result);
+                    }
+                })
+            })
+
+            
+        })
+</script>
+    
+    }
